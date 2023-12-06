@@ -14,7 +14,10 @@ func main() {
 
 	// CORS (Cross Origin Resource Sharing)の設定
 	// アクセスを許可するドメイン等を設定します
-	router.FiberApp.Use(cors.New(cors.Config{AllowHeaders: "Origin, Content-Type, Accept"}))
+	router.FiberApp.Use(cors.New(cors.Config{
+		AllowHeaders: "Origin, Content-Type, Accept",
+		AllowOrigins: "*",
+	}))
 
 	route.LoadRouter(router)
 
