@@ -29,5 +29,6 @@ func init() {
 		&User{},
 		&Applicant{},
 		&Interview{},
+		&InterviewEvaluation{},
 	)
 }

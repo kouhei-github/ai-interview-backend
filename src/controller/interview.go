@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/gofiber/fiber/v2"
 	"github.com/kouhei-github/ai-interview/repository"
+	"strconv"
 )
 
 func InterviewSaveHandler(c *fiber.Ctx) error {
@@ -22,8 +23,13 @@ func InterviewSaveHandler(c *fiber.Ctx) error {
 }
 
 func GetInterviewHandler(c *fiber.Ctx) error {
+	pathParamId := c.Params("id")
+	interviewId, err := strconv.Atoi(pathParamId)
+	if err != nil {
+		return err
+	}
 	var interview repository.Interview
-	records, err := interview.FindById(1)
+	records, err := interview.FindById(uint(interviewId))
 	if err != nil {
 		fmt.Println(err.Error())
 		return c.Status(fiber.StatusBadRequest).SendString(err.Error())

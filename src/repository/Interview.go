@@ -6,10 +6,11 @@ import (
 
 type Interview struct {
 	gorm.Model
-	ApplicantID     uint   `json:"applicant_id"`
-	InterviewType   string `json:"interview_type"`
-	InterviewStatus int    `json:"interview_status"`
-	Applicant       Applicant
+	ApplicantID         uint   `json:"applicant_id"`
+	InterviewType       string `json:"interview_type"`
+	InterviewStatus     int    `json:"interview_status"`
+	Applicant           Applicant
+	InterviewEvaluation InterviewEvaluation
 }
 
 func (receiver *Interview) Save() error {
@@ -18,6 +19,6 @@ func (receiver *Interview) Save() error {
 
 func (receiver *Interview) FindById(id uint) ([]Interview, error) {
 	var interviews []Interview
-	err := db.Preload("Applicant").Where("id = ?", id).Find(&interviews).Error
+	err := db.Preload("Applicant").Preload("InterviewEvaluation").Where("id = ?", id).Find(&interviews).Error
 	return interviews, err
 }

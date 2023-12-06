@@ -29,8 +29,14 @@ func (router *Router) GetRouter() {
 	router.FiberApp.Post("/interview", controller.InterviewSaveHandler)
 
 	// 面接情報の追加
-	router.FiberApp.Get("/interview", controller.GetInterviewHandler)
+	router.FiberApp.Get("/interview/:id", controller.GetInterviewHandler)
 
 	// 応募者の取得
 	router.FiberApp.Get("/applicant", controller.FindApplicantHandler)
+
+	// 面接評価の保存
+	router.FiberApp.Post("/interview-evaluation", controller.SaveInterviewEvaluationHandler)
+
+	// 面接評価の取得
+	router.FiberApp.Get("/interview-evaluation/:id", controller.GetInterviewEvaluationHandler)
 }
